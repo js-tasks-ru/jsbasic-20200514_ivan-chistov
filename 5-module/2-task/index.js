@@ -18,6 +18,11 @@ function SortableTable(items) {
    * @property {Element} - обязательное свойство, которое ссылается на элемент <table>
    */
   this.el = document.createElement('table');
+  this.el.innerHTML = 
+    `<thead>    
+    </thead>
+    <tbody>
+    </tbody>`;
 
   /**
    * Метод выполняет сортировку таблицы
@@ -42,14 +47,11 @@ function SortableTable(items) {
     pasteRowsInTable( items, this.el); 
   }
 
+  pasteTheadRowInTable(items, this.el)
+  pasteRowsInTable(items, this.el);
+  
 
-  function pasteTheadInTable(items = [], table) {
-    table.innerHTML = 
-    `<thead>    
-    </thead>
-    <tbody>
-    </tbody>`;
-
+  function pasteTheadRowInTable(items = [], table) {
     table.querySelector('thead').append( createTr( Object.keys(items[0]) ) );
   }
 
@@ -68,15 +70,14 @@ function SortableTable(items) {
   function createTr(row = []) {
     let tr = document.createElement('tr');
 
-    for (let cell of Object.values(row)) {
+    for (let cell of row) {
       tr.innerHTML += `<td>${cell}</td>`;
     }
     
     return tr;
   }
 
-  pasteTheadInTable(items, this.el)
-  pasteRowsInTable(items, this.el);
+
 }
 
 
