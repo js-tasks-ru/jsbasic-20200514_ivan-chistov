@@ -45,6 +45,7 @@ class ClearedTable {
 
   }
 
+  
   /**
    * Метод который вызывается после удалении строки
    * @param {number} id - идентификатор удаляемого пользователя
@@ -52,8 +53,8 @@ class ClearedTable {
   onRemoved(id) {}
 
 
-  _pasteTheadRowInTable(data = [], table) {
-    table.querySelector('thead').append( this._createTr( Object.keys(data[0]) ) );
+  _pasteTheadRowInTable(data = [], {firstElementChild : thead, lastElementChild : tbody}) {
+    thead.append( this._createTr( Object.keys(data[0]) ) );
   }
 
   /**
@@ -81,9 +82,9 @@ class ClearedTable {
     
     return tr;
   }
-
-
-  _pasteColumnOfLinksRight({firstElementChild : thead, lastElementChild : tbody}) {
+ 
+   
+  _pasteColumnOfLinksRight( {firstElementChild : thead, lastElementChild : tbody} ) {
     thead.firstElementChild.append(document.createElement('td'))
     let rows = tbody.querySelectorAll('tr');
 
@@ -91,10 +92,9 @@ class ClearedTable {
       let td = document.createElement('td');
       td.innerHTML = `<a href="#delete">X</a>`;
       row.append(td);
-
-
     }
   }
 }
 
 window.ClearedTable = ClearedTable;
+
