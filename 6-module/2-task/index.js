@@ -32,12 +32,7 @@ class Carousel {
       if(event.target.dataset.target !== "#mainCarousel") return;
 
       this._insertSlide(this.el.querySelector(`.carousel-inner`), this.slides[+event.target.dataset.slideTo]);
-
-      
     })
-
-
-
   }
 
   _insertBase(element) {
@@ -89,15 +84,7 @@ class Carousel {
     this.el.querySelector(`[data-slide-to="${id}"]`).classList.add('active');
   }
 
-/*  _changeSlide(where){
-    //console.log('test _nextSlide');
-    let id =  +this.el.querySelector(`.carousel-item`).dataset.id;
-    let nextId =  (id === 2) ? 0 : id + 1;
-    let previousId =  (id === 0) ? 2 : id - 1;
-    //console.log(nextId);
-    //console.log(this.slides);
-    this._insertSlide(this.el.querySelector(`.carousel-inner`), this.slides[nextId]);    
-  }*/
+
 
   _nextSlide(){
     let id =  +this.el.querySelector(`.carousel-item`).dataset.id;
@@ -115,14 +102,9 @@ class Carousel {
     return;
   }
 
-  /*_changeSlide(id){
-    this._insertSlide(id);
-  }*/
+  
 }
 
 // Делает класс доступным глобально, сделано для упрощения, чтобы можно было его вызывать из другого скрипта
 window.Carousel = Carousel;
 
-//let test = new Carousel(document);
-
-//console.log(test.slides);
