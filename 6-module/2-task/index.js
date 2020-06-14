@@ -1,7 +1,6 @@
 'use strict';
 
-class Carousel {
-  slides = [
+const slides = [
     {
       id: 0,
       title: 'BEST LAPTOP DEALS',
@@ -19,8 +18,13 @@ class Carousel {
     }
   ];
 
+
+class Carousel {
+  
+
   constructor(element) {
     this.el = element;
+    this.slides = slides;
 
     this._insertBase(this.el);
     this._insertSlide(this.el.querySelector(`.carousel-inner`), this.slides[0]);
