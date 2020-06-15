@@ -13,6 +13,7 @@
  *
  * @constructor
  */
+ 'use strict';
 class ClearedTable {
   constructor(data) {
     this.el = document.createElement('table');
@@ -35,16 +36,18 @@ class ClearedTable {
     this._pasteColumnOfLinksRight(this.el);
 
     this.el.onclick = (event) => {
+      const { target } = event;
       
-      if (event.target.getAttribute(`href`) !== `#delete`) return;
+      if (target.getAttribute(`href`) !== `#delete`) return;
       
-      event.target.parentElement.parentElement.remove();
+      target.closest('[data-id]').remove();
 
-      return this.onRemoved(+event.target.parentElement.parentElement.dataset.id);
+      return this.onRemoved(+target.closest('[data-id]').dataset.id);
     };
 
   }
 
+  
   /**
    * Метод который вызывается после удалении строки
    * @param {number} id - идентификатор удаляемого пользователя
@@ -52,19 +55,20 @@ class ClearedTable {
   onRemoved(id) {}
 
 
-  _pasteTheadRowInTable(data = [], table) {
-    table.querySelector('thead').append( this._createTr( Object.keys(data[0]) ) );
+  _pasteTheadRowInTable(data = [], {firstElementChild : thead, lastElementChild : tbody}) {
+    thead.append( this._createTr( Object.keys(data[0]) ) );
   }
 
   /**
    * Метод, который заполняет таблицу строками и добавляет к ним атрибут data-id
    * @param {arrey, object} arrey - массив строк в виде объектов, object - таблица в которую хотим вставить строки
    */
-  _pasteRowsInTable(data = [], table) {   
-    table.querySelector("tbody").innerHTML = '';
+  _pasteRowsInTable(data = [], table) {  
+    const {lastElementChild : tbody} = table; 
+    tbody.innerHTML = '';
 
     for (let row of data){
-      let tr = table.querySelector('tbody').appendChild( this._createTr( Object.values(row) ) );
+      const tr = tbody.appendChild( this._createTr( Object.values(row) ) );
       tr.dataset.id = row.id;
     } 
 
@@ -73,7 +77,7 @@ class ClearedTable {
 
 
   _createTr(row = []) {
-    let tr = document.createElement('tr');
+    const tr = document.createElement('tr');
 
     for (let cell of row) {
       tr.innerHTML += `<td>${cell}</td>`;
@@ -81,20 +85,19 @@ class ClearedTable {
     
     return tr;
   }
-
-
-  _pasteColumnOfLinksRight({firstElementChild : thead, lastElementChild : tbody}) {
+ 
+   
+  _pasteColumnOfLinksRight( {firstElementChild : thead, lastElementChild : tbody} ) {
     thead.firstElementChild.append(document.createElement('td'))
-    let rows = tbody.querySelectorAll('tr');
+    const rows = tbody.querySelectorAll('tr');
 
     for (let row of rows) {
-      let td = document.createElement('td');
+      const td = document.createElement('td');
       td.innerHTML = `<a href="#delete">X</a>`;
       row.append(td);
-
-
     }
   }
 }
 
 window.ClearedTable = ClearedTable;
+

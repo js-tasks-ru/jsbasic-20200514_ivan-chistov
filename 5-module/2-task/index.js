@@ -76,8 +76,6 @@ function SortableTable(items) {
     
     return tr;
   }
-
-
 }
 
 

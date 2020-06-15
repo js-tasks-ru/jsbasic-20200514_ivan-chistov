@@ -5,15 +5,15 @@
 function highlight(table) {
 
 	let rows = [...table.rows].slice(1);
-	//console.log(rows);
+	
 
 
 
 	for(let row of rows){
-		//console.log( isRowAvailable(row) );
+		
 		if (isRowAvailable(row) === true) {
 			row.classList.add('available');
-			//console.log(row.classList);
+			
 		} else if (isRowAvailable(row) === false) {
 			row.classList.add('unavailable');
 		} else if (isRowAvailable(row) === null) {
@@ -54,7 +54,7 @@ function isRowAvailable (row) {
 }
 
 function getRowsGender (row) {
-	//console.log(row.cells[2].innerHTML);
+	
 	return row.cells[2].innerHTML;
 }
 
