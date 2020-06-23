@@ -156,7 +156,6 @@ describe('9-module-1-task', () => {
       let productsFromStorageJSON = localStorage.getItem('cart-products');
       let productsFromStorage = JSON.parse(productsFromStorageJSON);
       let isProductFromStorageRemoved = !productsFromStorage.some((productsFromStorage) => {
-console.log('test');
         return productsFromStorage.id === product.id;
       });
 
