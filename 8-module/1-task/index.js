@@ -4,7 +4,7 @@ class ProductList {
 
   constructor(element) {
     this.el = element;
-
+    console.log('ProductList test')
     //this._getData().then(console.log);
   }
 
@@ -25,7 +25,9 @@ class ProductList {
 
  				if( confirm('Вы уверенны, что хотите добавить этот товар в корзину?') ){
 
- 					let cartProducts = JSON.parse( localStorage.getItem('cart-products') ) || [];
+
+
+ 					let cartProducts = ( localStorage.getItem('cart-products') ) ? JSON.parse( localStorage.getItem('cart-products') ) : [];
  					let id = target.closest('.products-list-product').dataset.productId;
  					
  					cartProducts[id-1] = data[id-1];
@@ -97,7 +99,7 @@ class ProductList {
   	`
   	)
 
-  	let stars = [...this.el.querySelector(`[data-product-id="${id}"]`).querySelectorAll(`.icon-star`)];
+  	let stars = [...this.el.querySelector(`.justify-content-end [data-product-id="${id}"]`).querySelectorAll(`.icon-star`)];
   	
   	for(let i = 0; i < rating.stars; i++) {
   		stars[i].classList.add('checked');
