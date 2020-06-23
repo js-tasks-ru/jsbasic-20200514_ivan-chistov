@@ -10,7 +10,7 @@ class ProductList {
 
   show() {
   	this._paintBase(this.el);
-  	console.log(this);
+  	
   	return this._getData()
   		.then(data => {
 
@@ -25,25 +25,14 @@ class ProductList {
 
  				if( confirm('Вы уверенны, что хотите добавить этот товар в корзину?') ){
 
- 					//localStorage.setItem('cart-products', '[]');
-
-
  					let cartProducts = JSON.parse( localStorage.getItem('cart-products') ) || [];
-
-  					//console.log(data);
-  					//console.log(target.closest('.products-list-product').dataset.productId);
-
- 					//console.log(data[target.dataset.productId]);
  					let id = target.closest('.products-list-product').dataset.productId;
  					
  					cartProducts[id-1] = data[id-1];
 
-
  					console.log( cartProducts );
 
  					localStorage.setItem('cart-products', JSON.stringify(cartProducts));
- 					
- 					//cartProducts.parse
  				}
   			});
 
@@ -90,11 +79,11 @@ class ProductList {
 	        <div class="card-body">
 	            <h5 class="card-title">${title}</h5>
 	            <div class="rate">
-	                <i class="icon-star checked"></i>
-	                <i class="icon-star checked"></i>
-	                <i class="icon-star checked"></i>
-	                <i class="icon-star checked"></i>
-	                <i class="icon-star checked"></i>
+	                <i class="icon-star "></i>
+	                <i class="icon-star "></i>
+	                <i class="icon-star "></i>
+	                <i class="icon-star "></i>
+	                <i class="icon-star "></i>
 	                <span class="rate-amount ml-2">${rating.reviewsAmount}</span>
 	            </div>
 	            ${priceHtml}
@@ -107,14 +96,19 @@ class ProductList {
 	</div>
   	`
   	)
+
+  	let stars = [...this.el.querySelector(`[data-product-id="${id}"]`).querySelectorAll(`.icon-star`)];
+  	
+  	for(let i = 0; i < rating.stars; i++) {
+  		stars[i].classList.add('checked');
+  	}
+
   }
 
+
   _getData(){  	
-  	console.log('getData test');
   	return fetch(`/assets/data/products.json`)
     	.then(res => res.json());
-
-
   }
 }
 
